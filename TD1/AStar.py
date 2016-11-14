@@ -181,9 +181,10 @@ class Map:
 
 
     # weighted Astar
-    # parent node of eahc node is modified durring path finding and can be used to built path from closedList
+    # parent node of each node is modified durring path finding and can be used to built path from closedList
     def AStarFindPath(self, startNodeNo, goalNodeNo, epsilon=1.0):                
     
+        iterationNb = 0
         
         goalNode = self.graph.listOfNodes[goalNodeNo]        
         
@@ -212,7 +213,9 @@ class Map:
             
             # if it corresponds to the goal node: end of algo with success
             if (nc.no == goalNodeNo):
-                successFlag = True                
+                successFlag = True
+                print "  - Nb of iterations: " + str(iterationNb)
+                print "  - Nb of nodes explored: "+str(len(closedList))                
                 return closedList, successFlag
             
             # list of numeros of successors of node nc
@@ -230,6 +233,11 @@ class Map:
                     s.parentNo = nc.no
 
                     openList.append(s)
+                    
+                    iterationNb = iterationNb+1
+
+        print "  - Nb of iterations: " + str(iterationNb) 
+        print "  - Nb of nodes explored: "+str(len(closedList))
                     
         
         return closedList, successFlag
@@ -345,11 +353,10 @@ if __name__=='__main__':
       
       
     # weighted A* algorithm
-    epsilon = 1.0
     
-    # startNodeNo = 0
-    # goalNodeNo = 19
-    #closedList, successFlag = carte.AStarFindPath(startNodeNo,goalNodeNo)
+    #startNodeNo = 0
+    #goalNodeNo = 19
+    #closedList, successFlag = carte.AStarFindPath(startNodeNo,goalNodeNo,epsilon=1.0)
     #print closedList
     #print successFlag
     
