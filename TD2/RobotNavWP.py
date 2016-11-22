@@ -21,17 +21,15 @@ robot = rob.Robot(x0, y0, theta0)
 
 
 # position control loop timer
-# !!!!! VALEUR A AJUSTER EN TD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-positionCtrlPeriod = 0.5
+positionCtrlPeriod = 0.2
 timerPositionCtrl = tmr.Timer(positionCtrlPeriod)
 
 # orientation control loop timer
-# !!!!! VALEUR A AJUSTER EN TD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-orientationCtrlPeriod = 0.5
+orientationCtrlPeriod = 0.05
 timerOrientationCtrl = tmr.Timer(orientationCtrlPeriod)
 
 
-# list of way points list of [x coord, y coord]
+# list of way points: list of [x coord, y coord]
 WPlist = [ [2.0,2.0] ]  
 #WPlist = [ [2.0,2.0] , [2.0, -2.0] ]
 #threshold for change to next WP
@@ -78,6 +76,13 @@ for t in simu.t:
         thetar = 0.0
         # !!!!! 
         
+        # !!!!! 
+        # A COMPRENDRE EN TD : quelle est l'utilité des deux lignes de code suivantes ?
+        #     (à conserver après le calcul de thetar)
+        if math.fabs(robot.theta-thetar)>math.pi:
+            thetar = thetar + math.copysign(2*math.pi,robot.theta)        
+        # !!!!! 
+        
         
     # orientation control loop
     if timerOrientationCtrl.isEllapsed(t):
@@ -88,7 +93,7 @@ for t in simu.t:
         # !!!!! 
 
     
-    # assign control inputs to robot
+    # apply control inputs to robot
     robot.setV(Vr)
     robot.setOmega(omegar)    
     
