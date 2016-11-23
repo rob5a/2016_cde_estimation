@@ -117,7 +117,7 @@ simu.plotVOmega(3)
 #simu.runAnimation(WPManager.epsilonWP, 5)
 
 # show plots
-plt.show()
+#plt.show()
 
 
 

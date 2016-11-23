@@ -82,9 +82,9 @@ class KalmanFilter:
 
     # prediction step of the Kalman filter, with input uk
     def predict(self, uk):
+        self.uk = uk                
         '''
-        # !!!!!!!!!!!! A COMPLETER EN TD !!!!!!!!!!!!!!!!!
-        self.uk = 
+        # !!!!!!!!!!!! A COMPLETER EN TD !!!!!!!!!!!!!!!!!        
         # state prediction
         self.xk = 
         # covariance prediction
@@ -94,9 +94,9 @@ class KalmanFilter:
 
     # update step of the Kalman filter, with measurement
     def update(self, yk):
+        self.yk = yk        
         '''
         # !!!!!!!!!!!! A COMPLETER EN TD !!!!!!!!!!!!!!!!!
-        self.yk = 
         # innovation
         innovk = 
         # innovation covariance
