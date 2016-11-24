@@ -82,33 +82,27 @@ class KalmanFilter:
 
     # prediction step of the Kalman filter, with input uk
     def predict(self, uk):
-        self.uk = uk                
-        '''
-        # !!!!!!!!!!!! A COMPLETER EN TD !!!!!!!!!!!!!!!!!        
+        self.uk = uk
         # state prediction
-        self.xk = 
+        self.xk = np.dot(self.Ak, self.xk) + np.dot(self.Bk, self.uk) 
         # covariance prediction
-        self.Pk = 
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!        
-        '''
+        self.Pk = np.dot( self.Ak,  np.dot( self.Pk, self.Ak.T ) ) + self.Qk
+        #print "predict\n"
 
     # update step of the Kalman filter, with measurement
     def update(self, yk):
-        self.yk = yk        
-        '''
-        # !!!!!!!!!!!! A COMPLETER EN TD !!!!!!!!!!!!!!!!!
+        self.yk = yk
         # innovation
-        innovk = 
+        innovk = self.yk - np.dot(self.Ck, self.xk)
         # innovation covariance
-        Sk = 
+        Sk = np.dot(self.Ck, np.dot(self.Pk , self.Ck.T) ) + self.Rk
         # Kalman gain
-        Kk = 
+        Kk = np.dot(self.Pk, np.dot(self.Ck.T , np.linalg.inv(Sk) )  )
         # state update
-        self.xk = 
+        self.xk = self.xk + np.dot(Kk , innovk)
         # covariance update
-        self.Pk = 
-        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!        
-        '''
+        self.Pk = self.Pk - np.dot(Kk , np.dot(self.Ck,self.Pk) )
+        #print "update\n"
         
         
     # prediction step and update step
@@ -223,7 +217,7 @@ if __name__=='__main__':
     plt.xlabel('k')
     plt.ylabel('x1(k)')
     plt.grid(True)
-    plt.legend([l1,l2], ['points issus du calcul', 'solution a trouver'], loc=2)
+    plt.legend([l1,l2], ['computed', 'solution'], loc=2)
     plt.xlim([-0.5, 3.5])
     plt.title('Estimate (blue) and 3-sigma incertitude (black)')
     
@@ -238,7 +232,7 @@ if __name__=='__main__':
     plt.xlabel('k')
     plt.ylabel('x2(k)')
     plt.grid(True)
-    plt.legend([l1,l2], ['points issus du calcul', 'solution a trouver'], loc=1)
+    plt.legend([l1,l2], ['computed', 'solution'], loc=1)
     plt.xlim([-0.5, 3.5])
     plt.title('Estimate (red) and 3-sigma incertitude (black)')
     
